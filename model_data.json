@@ -1,0 +1,777 @@
+[
+  {
+    "id": "4A7",
+    "name": "Midjourney",
+    "description": "Midjourney is an AI-powered image generation tool that creates unique, high-quality images from textual descriptions.",
+    "creator": "Midjourney",
+    "featured": false,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import requests\n\ndef generate_image(description):\n    endpoint = \"https://midjourney.com/api/image-generation\"\n    data = {\"description\": description}\n\n    try:\n        response = requests.post(endpoint, json=data)\n        if response.status_code == 200:\n            # Assuming the response contains the generated image\n            generated_image = response.content\n            return generated_image\n        else:\n            print(\"Failed to generate image. Status code:\", response.status_code)\n            return None\n    except Exception as e:\n        print(\"Error occurred:\", e)\n        return None\n\n# Example descriptions\ndescriptions = [\n    \"A serene landscape with mountains in the background and a flowing river in the foreground.\",\n    \"An abstract artwork featuring vibrant colors and dynamic shapes.\",\n    \"A futuristic cityscape with towering skyscrapers and flying vehicles.\",\n]\n\n# Generate images for each description\nfor i, desc in enumerate(descriptions):\n    image_data = generate_image(desc)\n    if image_data:\n        with open(f\"generated_image_{i+1}.png\", \"wb\") as f:\n            f.write(image_data)\n            print(f\"Image {i+1} generated successfully.\")\n    else:\n        print(f\"Failed to generate image for description {i+1}.\")"
+    }
+  },
+  {
+    "id": "8B2",
+    "name": "RoBERTa",
+    "description": "RoBERTa (Robustly Optimized BERT Pretraining Approach) is an optimized version of BERT that achieves state-of-the-art performance on various natural language processing tasks.",
+    "creator": "Facebook AI",
+    "featured": false,
+    "category": "Natural Language Processing",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Sentiment analysis",
+      "Named entity recognition",
+      "Text classification"
+    ]
+  },
+  {
+    "id": "D9C",
+    "name": "Inception-v3",
+    "description": "Inception-v3 is a convolutional neural network architecture for image classification and object detection tasks.",
+    "creator": "Google",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object detection"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import pipeline\n\n# Load RoBERTa model for sentiment analysis\nsentiment_analysis = pipeline(\"sentiment-analysis\", model=\"roberta-base\")\n\n# Example text for sentiment analysis\ntext = \"I absolutely loved the new movie! The acting was superb and the storyline was captivating.\"\n\n# Perform sentiment analysis using RoBERTa\nsentiment_result = sentiment_analysis(text)\n\n# Display the sentiment analysis result\nprint(\"Sentiment Analysis Result:\")\nprint(\"Text:\", text)\nprint(\"Sentiment:\", sentiment_result[0]['label'])\nprint(\"Confidence Score:\", sentiment_result[0]['score'])"
+    }
+  },
+  {
+    "id": "5F8",
+    "name": "Jurassic-1 Jumbo",
+    "description": "Jurassic-1 Jumbo is a large language model developed by AI21 Labs, capable of generating human-like text and performing various natural language processing tasks.",
+    "creator": "AI21 Labs",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ]
+  },
+  {
+    "id": "7D6",
+    "name": "YOLOv5",
+    "description": "YOLOv5 is a real-time object detection model that identifies and localizes objects in images and videos with high accuracy and speed.",
+    "creator": "Ultralytics",
+    "featured": false,
+    "category": "Object Detection",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Real-time object detection in images and videos",
+      "Video surveillance",
+      "Autonomous vehicles"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import GPT2LMHeadModel, GPT2Tokenizer\n\n# Load pre-trained Jurassic-1 Jumbo model and tokenizer\nmodel_name = \"EleutherAI/gpt-j-6B\"\ntokenizer = GPT2Tokenizer.from_pretrained(model_name)\nmodel = GPT2LMHeadModel.from_pretrained(model_name)\n\n# Example text for text generation\nprompt_text = \"Once upon a time\"\n\n# Tokenize input text\ninput_ids = tokenizer.encode(prompt_text, return_tensors=\"pt\")\n\n# Generate text based on the input prompt\noutput = model.generate(input_ids, max_length=100, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)\n\n# Decode generated text\ngenerated_text = tokenizer.decode(output[0], skip_special_tokens=True)\n\n# Display generated text\nprint(\"Generated Text:\")\nprint(generated_text)"
+    }
+  },
+  {
+    "id": "B4E",
+    "name": "ResNet",
+    "description": "Residual Networks are a type of convolutional neural network architecture, widely used for image recognition tasks.",
+    "creator": "Microsoft Research",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image recognition",
+      "Image classification",
+      "Object detection"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nimport torchvision.models as models\nimport torchvision.transforms as transforms\nfrom PIL import Image\n\n# Load pre-trained ResNet model\nresnet_model = models.resnet50(pretrained=True)\nresnet_model.eval()\n\n# Define image preprocessing pipeline\npreprocess = transforms.Compose([\n    transforms.Resize(256),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),\n])\n\n# Load and preprocess the input image\nimage_path = \"example_image.jpg\"\ninput_image = Image.open(image_path)\ninput_tensor = preprocess(input_image)\ninput_batch = input_tensor.unsqueeze(0)  # Add batch dimension\n\n# Perform inference\nwith torch.no_grad():\n    output = resnet_model(input_batch)\n\n# Get predicted label\npredicted_idx = torch.argmax(output[0]).item()\n# You may need to have a mapping of indices to class labels depending on the dataset used for pretraining\n# For ImageNet, for example, you can find the mapping here: https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json\n\n# Print predicted label\nprint(\"Predicted class label:\", predicted_idx)"
+    }
+  },
+  {
+    "id": "2A1",
+    "name": "GPT-3",
+    "description": "Generative Pre-trained Transformer 3 is a state-of-the-art language processing model developed by OpenAI.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "NLP",
+    "reasonForFeatured": "Most favorites",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering",
+      "Code generation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set up OpenAI API key\nopenai.api_key = \"your-api-key\"\n\n# Example prompt for text generation\nprompt_text = \"Once upon a time,\"\n\n# Generate text using GPT-3\nresponse = openai.Completion.create(\n  engine=\"text-davinci-002\",\n  prompt=prompt_text,\n  max_tokens=100\n)\n\n# Display generated text\nprint(\"Generated Text:\")\nprint(response.choices[0].text.strip())"
+    }
+  },
+  {
+    "id": "F5D",
+    "name": "Word2Vec",
+    "description": "Word2Vec is a technique for natural language processing where words are represented as vectors in a continuous vector space.",
+    "creator": "Tomas Mikolov",
+    "featured": false,
+    "category": "NLP",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Word embeddings",
+      "Text similarity",
+      "Text classification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from gensim.models import Word2Vec\n\n# Example sentences for training Word2Vec model\nsentences = [[\"I\", \"love\", \"natural\", \"language\", \"processing\"],\n             [\"Word\", \"embeddings\", \"capture\", \"semantic\", \"meaning\"],\n             [\"Text\", \"classification\", \"involves\", \"assigning\", \"labels\"]]\n\n# Train Word2Vec model\nmodel = Word2Vec(sentences, vector_size=100, window=5, min_count=1, workers=4)\n\n# Get word embeddings\nword_embedding = model.wv[\"language\"]\n\n# Display word embedding for the word \"language\"\nprint(\"Word Embedding for 'language':\", word_embedding)"
+    }
+  },
+  {
+    "id": "6C9",
+    "name": "AlexNet",
+    "description": "AlexNet is a convolutional neural network that is one of the first deep learning models to achieve significant performance improvements over traditional methods on image classification tasks.",
+    "creator": "Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object recognition"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nimport torchvision.models as models\nimport torchvision.transforms as transforms\nfrom PIL import Image\n\n# Load pre-trained AlexNet model\nalexnet_model = models.alexnet(pretrained=True)\nalexnet_model.eval()\n\n# Define image preprocessing pipeline\npreprocess = transforms.Compose([\n    transforms.Resize(256),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),\n])\n\n# Load and preprocess the input image\nimage_path = \"example_image.jpg\"\ninput_image = Image.open(image_path)\ninput_tensor = preprocess(input_image)\ninput_batch = input_tensor.unsqueeze(0)  # Add batch dimension\n\n# Perform inference\nwith torch.no_grad():\n    output = alexnet_model(input_batch)\n\n# Get predicted label\npredicted_idx = torch.argmax(output[0]).item()\n# You may need to have a mapping of indices to class labels depending on the dataset used for pretraining\n# For ImageNet, for example, you can find the mapping here: https://raw.githubusercontent.com/anishathalye/imagenet-simple-labels/master/imagenet-simple-labels.json\n\n# Print predicted label\nprint(\"Predicted class label:\", predicted_idx)"
+    }
+  },
+  {
+    "id": "A3F",
+    "name": "Alpaca",
+    "description": "Alpaca is an instruction-following LLM developed by Stanford CRFM, trained on 52K demonstrations using self-instruct.",
+    "creator": "Stanford CRFM",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Instruction-following",
+      "Text-based game playing"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Suppose you have a set of instructions\ninstructions = [\n    \"Move forward 3 steps\",\n    \"Turn left\",\n    \"Jump\",\n    \"Move forward 2 steps\",\n    \"Turn right\",\n    \"Move forward 4 steps\"\n]\n\n# Define a function to execute the instructions\ndef execute_instructions(instructions):\n    for instruction in instructions:\n        print(\"Executing instruction:\", instruction)\n        # Here you would have logic to interpret and execute the instruction, e.g., controlling a virtual agent or a robot\n\n# Execute the instructions using Alpaca\nexecute_instructions(instructions)"
+    }
+  },
+  {
+    "id": "D7B",
+    "name": "LLaMA",
+    "description": "LLaMA is a collection of foundation language models developed by Meta AI.",
+    "creator": "Meta AI",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Assuming you have installed the Hugging Face Transformers library\nfrom transformers import GPT2LMHeadModel, GPT2Tokenizer\n\n# Load pre-trained LLaMA model and tokenizer\nmodel_name = \"metai/lla-large\"\ntokenizer = GPT2Tokenizer.from_pretrained(model_name)\nmodel = GPT2LMHeadModel.from_pretrained(model_name)\n\n# Example prompt for text generation\nprompt_text = \"Once upon a time,\"\n\n# Tokenize input text\ninput_ids = tokenizer.encode(prompt_text, return_tensors=\"pt\")\n\n# Generate text based on the input prompt\noutput = model.generate(input_ids, max_length=100, num_return_sequences=1, pad_token_id=tokenizer.eos_token_id)\n\n# Decode generated text\ngenerated_text = tokenizer.decode(output[0], skip_special_tokens=True)\n\n# Display generated text\nprint(\"Generated Text:\")\nprint(generated_text)"
+    }
+  },
+  {
+    "id": "3F1",
+    "name": "GPT-4",
+    "description": "GPT-4 is a large-scale language model developed by OpenAI, capable of handling complex tasks such as text generation, question answering, and code generation.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "Language Model",
+    "reasonForFeatured": "Most downloaded",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering",
+      "Code generation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set up OpenAI API key\nopenai.api_key = \"your-api-key\"\n\n# Example prompt for text generation\nprompt_text = \"Once upon a time,\"\n\n# Generate text using GPT-4\nresponse = openai.Completion.create(\n  engine=\"text-davinci-003\",  # Assuming GPT-4 is available under this engine\n  prompt=prompt_text,\n  max_tokens=100\n)\n\n# Display generated text\nprint(\"Generated Text:\")\nprint(response.choices[0].text.strip())"
+    }
+  },
+  {
+    "id": "A2B",
+    "name": "BERT",
+    "description": "BERT (Bidirectional Encoder Representations from Transformers) is a pre-trained deep learning model for natural language processing tasks, such as sentiment analysis and named entity recognition.",
+    "creator": "Google",
+    "featured": true,
+    "category": "Natural Language Processing",
+    "reasonForFeatured": "Most favorites",
+    "useCases": [
+      "Sentiment analysis",
+      "Named entity recognition",
+      "Text classification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import BertTokenizer, BertForSequenceClassification\nimport torch\n\n# Load pre-trained BERT tokenizer and model\ntokenizer = BertTokenizer.from_pretrained('bert-base-uncased')\nmodel = BertForSequenceClassification.from_pretrained('bert-base-uncased')\n\n# Example text for sentiment analysis\ntext = \"I loved the movie! It was fantastic.\"\n\n# Tokenize input text\ninputs = tokenizer(text, return_tensors='pt')\n\n# Perform inference\noutputs = model(**inputs)\n\n# Get predicted label\npredicted_label_idx = torch.argmax(outputs.logits[0]).item()\n\n# You may need to have a mapping of indices to class labels\n# For example, 0 could represent negative sentiment, 1 positive sentiment\npredicted_label = \"Positive\" if predicted_label_idx == 1 else \"Negative\"\n\n# Print predicted label\nprint(\"Predicted Sentiment:\", predicted_label)"
+    }
+  },
+  {
+    "id": "CDE",
+    "name": "Stable Diffusion",
+    "description": "Stable Diffusion is a latent text-to-image diffusion model capable of generating detailed images conditioned on text descriptions.",
+    "creator": "Stability AI",
+    "featured": true,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import requests\n\n# Text description for image generation\ntext_description = \"A serene landscape with mountains in the background and a calm lake in the foreground.\"\n\n# API endpoint for Stable Diffusion image generation\napi_endpoint = \"https://api.stabilityai.com/diffusion/image_generation\"\n\n# Parameters for the API request\nparams = {\n    \"text\": text_description,\n    \"model_version\": \"stable_diffusion_v2\",\n    \"output_resolution\": \"1024x1024\",\n    \"num_images\": 1\n}\n\n# Send API request\nresponse = requests.post(api_endpoint, json=params)\n\n# Check if request was successful\nif response.status_code == 200:\n    # Extract generated image from response\n    generated_image_url = response.json()[\"generated_images\"][0]\n    print(\"Generated Image URL:\", generated_image_url)\nelse:\n    print(\"Error:\", response.text)"
+    }
+  },
+  {
+    "id": "F0D",
+    "name": "Whisper",
+    "description": "Whisper is an automatic speech recognition (ASR) system developed by OpenAI. It is a multi-task model that can perform multilingual speech recognition, translation, and language identification.",
+    "creator": "OpenAI",
+    "featured": false,
+    "category": "Speech Recognition",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Speech recognition",
+      "Language translation",
+      "Language identification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import requests\n\n# Example audio file path\naudio_file_path = \"path/to/audio/file.wav\"\n\n# API endpoint for Whisper ASR\napi_endpoint = \"https://api.openai.com/v1/whisper/asr\"\n\n# Read audio file as binary data\nwith open(audio_file_path, \"rb\") as file:\n    audio_data = file.read()\n\n# API request headers\nheaders = {\n    \"Content-Type\": \"audio/wav\",\n    \"Authorization\": \"Bearer your-api-key\"\n}\n\n# Parameters for the API request\nparams = {\n    \"language\": \"en-US\",  # Example: English (US)\n    \"model\": \"whisper_v2\"  # Example: Whisper v2\n}\n\n# Send API request\nresponse = requests.post(api_endpoint, headers=headers, data=audio_data, params=params)\n\n# Check if request was successful\nif response.status_code == 200:\n    # Extract ASR result from response\n    asr_result = response.json()[\"transcription\"]\n    print(\"ASR Result:\", asr_result)\nelse:\n    print(\"Error:\", response.text)"
+    }
+  },
+  {
+    "id": "1E9",
+    "name": "DALL-E 2",
+    "description": "DALL-E 2 is a multimodal AI system that can create realistic images and art from a description in natural language.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "Image Generation",
+    "reasonForFeatured": "Most downloaded",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import requests\n\n# Example text description for image generation\ntext_description = \"A fluffy cat sitting on a pile of books in a cozy library.\"\n\n# API endpoint for DALL-E 2 image generation\napi_endpoint = \"https://api.openai.com/v1/dalle/generate\"\n\n# API request headers\nheaders = {\n    \"Content-Type\": \"application/json\",\n    \"Authorization\": \"Bearer your-api-key\"\n}\n\n# Parameters for the API request\nparams = {\n    \"text\": text_description,\n    \"num_images\": 1,\n    \"model\": \"dalle2\"\n}\n\n# Send API request\nresponse = requests.post(api_endpoint, headers=headers, json=params)\n\n# Check if request was successful\nif response.status_code == 200:\n    # Extract generated image URL from response\n    generated_image_url = response.json()[\"images\"][0][\"url\"]\n    print(\"Generated Image URL:\", generated_image_url)\nelse:\n    print(\"Error:\", response.text)"
+    }
+  },
+  {
+    "id": "3F1",
+    "name": "GPT-4",
+    "description": "GPT-4 is a large-scale language model developed by OpenAI, capable of handling complex tasks such as text generation, question answering, and code generation.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "Language Model",
+    "reasonForFeatured": "Most downloaded",
+    "useCases": [
+      "Text generation",
+      "Question answering",
+      "Code generation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set your OpenAI API key\nopenai.api_key = 'your-api-key'\n\n# Example prompt for GPT-4\nprompt = \"Generate a short story about a detective solving a mysterious case.\"\n\n# Generate text using GPT-4\nresponse = openai.Completion.create(\n    engine=\"text-davinci-003\",  # Specify GPT-4 engine\n    prompt=prompt,\n    max_tokens=100  # Adjust as needed\n)\n\n# Extract generated text from response\ngenerated_text = response.choices[0].text.strip()\n\n# Print generated text\nprint(\"Generated Text:\")\nprint(generated_text)"
+    }
+  },
+  {
+    "id": "A2B",
+    "name": "BERT",
+    "description": "BERT (Bidirectional Encoder Representations from Transformers) is a pre-trained deep learning model for natural language processing tasks, such as sentiment analysis and named entity recognition.",
+    "creator": "Google",
+    "featured": true,
+    "category": "Natural Language Processing",
+    "reasonForFeatured": "Most favorites",
+    "useCases": [
+      "Sentiment analysis",
+      "Named entity recognition",
+      "Text classification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import BertTokenizer, BertForSequenceClassification\nimport torch\n\n# Load pre-trained BERT model and tokenizer\nmodel_name = 'bert-base-uncased'\ntokenizer = BertTokenizer.from_pretrained(model_name)\nmodel = BertForSequenceClassification.from_pretrained(model_name)\n\n# Example text for sentiment analysis\ntext = \"I loved the movie! It was fantastic.\"\n\n# Tokenize input text\ninputs = tokenizer(text, return_tensors='pt', truncation=True, padding=True)\n\n# Perform inference\nwith torch.no_grad():\n    outputs = model(**inputs)\n\n# Extract predicted sentiment\npredicted_class = torch.argmax(outputs.logits).item()\nsentiment = \"positive\" if predicted_class == 1 else \"negative\"\n\n# Print predicted sentiment\nprint(\"Predicted Sentiment:\", sentiment)"
+    }
+  },
+  {
+    "id": "CDE",
+    "name": "Stable Diffusion",
+    "description": "Stable Diffusion is a latent text-to-image diffusion model capable of generating detailed images conditioned on text descriptions.",
+    "creator": "Stability AI",
+    "featured": true,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import stability_ai\n\n# Example text description for image generation\ntext_description = \"A serene beach scene with palm trees and a sunset.\"\n\n# Generate image using Stable Diffusion\ngenerated_image = stability_ai.generate_image(text_description)\n\n# Display or save the generated image\ngenerated_image.show()"
+    }
+  },
+  {
+    "id": "F0D",
+    "name": "Whisper",
+    "description": "Whisper is an automatic speech recognition (ASR) system developed by OpenAI. It is a multi-task model that can perform multilingual speech recognition, translation, and language identification.",
+    "creator": "OpenAI",
+    "featured": false,
+    "category": "Speech Recognition",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Speech recognition",
+      "Language translation",
+      "Language identification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set your OpenAI API key\nopenai.api_key = 'your-api-key'\n\n# Example audio file for speech recognition\naudio_file_path = \"path/to/your/audio/file.wav\"\n\n# Perform speech recognition using Whisper\nresponse = openai.Transcription.create(\n    audio=audio_file_path,\n    model=\"whisper\",\n    language=\"en-US\"  # Language of the audio file (adjust as needed)\n)\n\n# Extract transcribed text from response\ntranscribed_text = response['transcriptions'][0]['text']\n\n# Print transcribed text\nprint(\"Transcribed Text:\")\nprint(transcribed_text)"
+    }
+  },
+  {
+    "id": "1E9",
+    "name": "DALL-E 2",
+    "description": "DALL-E 2 is a multimodal AI system that can create realistic images and art from a description in natural language.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "Image Generation",
+    "reasonForFeatured": "Most downloaded",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set your OpenAI API key\nopenai.api_key = 'your-api-key'\n\n# Example text description for image generation\ntext_description = \"A fluffy white cat riding a skateboard in outer space.\"\n\n# Generate image using DALL-E 2\nresponse = openai.Image.create(\n    prompt=text_description,\n    model=\"text-dalle-002\"  # DALL-E 2 model\n)\n\n# Extract generated image URL from response\ngenerated_image_url = response['url']\n\n# Print generated image URL\nprint(\"Generated Image URL:\", generated_image_url)"
+    }
+  },
+  {
+    "id": "4A7",
+    "name": "Midjourney",
+    "description": "Midjourney is an AI-powered image generation tool that creates unique, high-quality images from textual descriptions.",
+    "creator": "Midjourney",
+    "featured": false,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation for creative projects",
+      "Enhancing visual content for marketing materials"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import midjourney\n\n# Example text description for image generation\ntext_description = \"A serene forest scene with sunlight filtering through the trees.\"\n\n# Generate image using Midjourney\ngenerated_image = midjourney.generate_image(text_description)\n\n# Display or save the generated image\ngenerated_image.show()"
+    }
+  },
+  {
+    "id": "8B2",
+    "name": "RoBERTa",
+    "description": "RoBERTa (Robustly Optimized BERT Pretraining Approach) is an optimized version of BERT that achieves state-of-the-art performance on various natural language processing tasks.",
+    "creator": "Facebook AI",
+    "featured": false,
+    "category": "Natural Language Processing",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Sentiment analysis",
+      "Named entity recognition",
+      "Text classification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import pipeline\n\n# Initialize sentiment analysis pipeline with RoBERTa\nnlp = pipeline(\"sentiment-analysis\", model=\"roberta-base\")\n\n# Example text for sentiment analysis\ntext = \"I love this product! It's amazing.\"\n\n# Perform sentiment analysis using RoBERTa\nsentiment = nlp(text)\n\n# Print sentiment analysis result\nprint(\"Sentiment:\", sentiment[0]['label'], \"with confidence score:\", sentiment[0]['score'])"
+    }
+  },
+  {
+    "id": "D9C",
+    "name": "Inception-v3",
+    "description": "Inception-v3 is a convolutional neural network architecture for image classification and object detection tasks.",
+    "creator": "Google",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object detection"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import tensorflow as tf\nfrom tensorflow.keras.applications.inception_v3 import InceptionV3, preprocess_input, decode_predictions\nfrom tensorflow.keras.preprocessing import image\nimport numpy as np\n\n# Load pre-trained Inception-v3 model\nmodel = InceptionV3(weights='imagenet')\n\n# Load and preprocess the image\nimg_path = 'path/to/your/image.jpg'\nimg = image.load_img(img_path, target_size=(299, 299))\nx = image.img_to_array(img)\nx = np.expand_dims(x, axis=0)\nx = preprocess_input(x)\n\n# Perform image classification using Inception-v3\npredictions = model.predict(x)\n\n# Decode and print the top 3 predicted classes\ndecoded_predictions = decode_predictions(predictions, top=3)[0]\nfor i, (imagenet_id, label, score) in enumerate(decoded_predictions):\n    print(f\"Prediction {i+1}: {label} ({score:.2f})\")"
+    }
+  },
+  {
+    "id": "5F8",
+    "name": "Jurassic-1 Jumbo",
+    "description": "Jurassic-1 Jumbo is a large language model developed by AI21 Labs, capable of generating human-like text and performing various natural language processing tasks.",
+    "creator": "AI21 Labs",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import pipeline\n\n# Initialize text generation pipeline with Jurassic-1 Jumbo\ntext_generator = pipeline(\"text-generation\", model=\"ai21/jurassic-1\")\n\n# Generate text using Jurassic-1 Jumbo\ngenerated_text = text_generator(\"Once upon a time,\")\n\n# Print the generated text\nprint(generated_text[0]['generated_text'])"
+    }
+  },
+  {
+    "id": "7D6",
+    "name": "YOLOv5",
+    "description": "YOLOv5 is a real-time object detection model that identifies and localizes objects in images and videos with high accuracy and speed.",
+    "creator": "Ultralytics",
+    "featured": false,
+    "category": "Object Detection",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Object detection in images",
+      "Object detection in videos",
+      "Real-time object tracking"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nfrom torchvision import transforms\nfrom PIL import Image\n\n# Load pre-trained YOLOv5 model\nmodel = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)\n\n# Load and preprocess the image\nimg_path = 'path/to/your/image.jpg'\nimg = Image.open(img_path)\ntransform = transforms.Compose([transforms.Resize(640), transforms.ToTensor()])\nimg = transform(img)\n\n# Perform object detection using YOLOv5\nresults = model(img)\n\n# Display the detected objects\nresults.show()"
+    }
+  },
+  {
+    "id": "B4E",
+    "name": "ResNet",
+    "description": "Residual Networks are a type of convolutional neural network architecture, widely used for image recognition tasks.",
+    "creator": "Microsoft Research",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object recognition",
+      "Image segmentation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nfrom torchvision import models, transforms\nfrom PIL import Image\n\n# Load pre-trained ResNet model\nmodel = models.resnet50(pretrained=True)\nmodel.eval()\n\n# Load and preprocess the image\nimg_path = 'path/to/your/image.jpg'\nimg = Image.open(img_path)\ntransform = transforms.Compose([\n    transforms.Resize(256),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])\n])\nimg = transform(img)\nimg = img.unsqueeze(0)\n\n# Perform image classification using ResNet\nwith torch.no_grad():\n    outputs = model(img)\n\n# Get the predicted class label\n_, predicted = torch.max(outputs, 1)"
+    }
+  },
+  {
+    "id": "2A1",
+    "name": "GPT-3",
+    "description": "Generative Pre-trained Transformer 3 is a state-of-the-art language processing model developed by OpenAI.",
+    "creator": "OpenAI",
+    "featured": true,
+    "category": "NLP",
+    "reasonForFeatured": "Most favorites",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import openai\n\n# Set up your OpenAI API key\nopenai.api_key = 'your-api-key'\n\n# Define the prompt for text generation\nprompt = 'Once upon a time,'\n\n# Generate text using GPT-3\nresponse = openai.Completion.create(\n  engine='text-davinci-002',\n  prompt=prompt,\n  max_tokens=100\n)\n\n# Print the generated text\nprint(response.choices[0].text.strip())"
+    }
+  },
+  {
+    "id": "F5D",
+    "name": "Word2Vec",
+    "description": "Word2Vec is a technique for natural language processing where words are represented as vectors in a continuous vector space.",
+    "creator": "Tomas Mikolov",
+    "featured": false,
+    "category": "NLP",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Word embeddings",
+      "Text similarity",
+      "Text classification"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from gensim.models import Word2Vec\r\n\r\n# Example sentences\r\nsentences = [[\"I\", \"love\", \"natural\", \"language\", \"processing\"],\r\n             [\"Word2Vec\", \"is\", \"a\", \"technique\", \"for\", \"NLP\"],\r\n             [\"It\", \"represents\", \"words\", \"as\", \"vectors\"]]\r\n\r\n# Train Word2Vec model\r\nmodel = Word2Vec(sentences, min_count=1)\r\n\r\n# Get the vector representation of a word\r\nword_vector = model.wv['natural']\r\n\r\n# Find similar words\r\nsimilar_words = model.wv.most_similar('natural')\r\n\r\n# Print results\r\nprint(\"Vector representation of 'natural':\", word_vector)\r\nprint(\"Similar words to 'natural':\", similar_words)\r\n"
+    }
+  },
+  {
+    "id": "6C9",
+    "name": "AlexNet",
+    "description": "AlexNet is a convolutional neural network that is one of the first deep learning models to achieve significant performance improvements over traditional methods on image classification tasks.",
+    "creator": "Alex Krizhevsky, Ilya Sutskever, Geoffrey Hinton",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object recognition",
+      "Image segmentation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nimport torchvision.models as models\nimport torchvision.transforms as transforms\nfrom PIL import Image\n\n# Load pre-trained AlexNet model\nalexnet = models.alexnet(pretrained=True)\n\n# Define transformations for input images\npreprocess = transforms.Compose([\n    transforms.Resize(256),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),\n])\n\n# Load and preprocess an example image\nimage_path = 'example_image.jpg'\nimage = Image.open(image_path)\ninput_tensor = preprocess(image)\ninput_batch = input_tensor.unsqueeze(0)\n\n# Classify the input image using AlexNet\nwith torch.no_grad():\n    output = alexnet(input_batch)\n\n# Load ImageNet labels\nwith open('imagenet_labels.txt') as f:\n    labels = [line.strip() for line in f.readlines()]\n\n# Print the top predicted class\n_, predicted_idx = torch.max(output, 1)\npredicted_label = labels[predicted_idx[0]]\nprint('Predicted label:', predicted_label)"
+    }
+  },
+  {
+    "id": "A3F",
+    "name": "Alpaca",
+    "description": "Alpaca is an instruction-following LLM developed by Stanford CRFM, trained on 52K demonstrations using self-instruct.",
+    "creator": "Stanford CRFM",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import AlpacaForConditionalGeneration, AlpacaTokenizer\n\n# Load pre-trained Alpaca model and tokenizer\nmodel_name = 'stanfordcrfm/alpaca-base'\ntokenizer = AlpacaTokenizer.from_pretrained(model_name)\nmodel = AlpacaForConditionalGeneration.from_pretrained(model_name)\n\n# Define a prompt for text generation\nprompt = 'Once upon a time, in a land far, far away'\n\n# Tokenize the prompt\ninput_ids = tokenizer.encode(prompt, return_tensors='pt')\n\n# Generate text based on the prompt\noutput_ids = model.generate(input_ids, max_length=100, num_return_sequences=1)\n\n# Decode the generated text\ngenerated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)\nprint('Generated text:', generated_text)"
+    }
+  },
+  {
+    "id": "D7B",
+    "name": "LLaMA",
+    "description": "LLaMA is a collection of foundation language models developed by Meta AI.",
+    "creator": "Meta AI",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import LLaMAForConditionalGeneration, LLaMATokenizer\n\n# Load pre-trained LLaMA model and tokenizer\nmodel_name = 'meta-ai/llama-base'\ntokenizer = LLaMATokenizer.from_pretrained(model_name)\nmodel = LLaMAForConditionalGeneration.from_pretrained(model_name)\n\n# Define a prompt for text generation\nprompt = 'Once upon a time, in a land far, far away'\n\n# Tokenize the prompt\ninput_ids = tokenizer.encode(prompt, return_tensors='pt')\n\n# Generate text based on the prompt\noutput_ids = model.generate(input_ids, max_length=100, num_return_sequences=1)\n\n# Decode the generated text\ngenerated_text = tokenizer.decode(output_ids[0], skip_special_tokens=True)\nprint('Generated text:', generated_text)"
+    }
+  },
+  {
+    "id": "9E2",
+    "name": "Segment Anything",
+    "description": "Segment Anything is a deep learning model that can segment any object in an image with a single click.",
+    "creator": "Meta AI",
+    "featured": true,
+    "category": "Image Segmentation",
+    "reasonForFeatured": "Most downloaded",
+    "useCases": [
+      "Image segmentation",
+      "Object recognition",
+      "Image editing"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import tensorflow as tf\nimport numpy as np\n\n# Load pre-trained Segment Anything model\nmodel = tf.keras.models.load_model('segment_anything_model')\n\n# Load and preprocess the input image\nimage_path = 'input_image.jpg'\nimage = tf.keras.preprocessing.image.load_img(image_path, target_size=(256, 256))\ninput_image = tf.keras.preprocessing.image.img_to_array(image)\ninput_image = np.expand_dims(input_image, axis=0) / 255.0\n\n# Perform segmentation\nsegmentation_map = model.predict(input_image)\n\n# Post-process segmentation map (if needed)\n\n# Visualize the segmentation map\n# (Example: you may use matplotlib or other visualization libraries)"
+    }
+  },
+  {
+    "id": "F8A",
+    "name": "PaLM",
+    "description": "PaLM (Pathways Language Model) is a large-scale autoregressive language model developed by Google AI.",
+    "creator": "Google AI",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import tensorflow as tf\n\n# Load pre-trained PaLM model\nmodel = tf.keras.models.load_model('palm_model')\n\n# Generate text\ninput_prompt = 'Once upon a time'\ngenerated_text = model.generate_text(input_prompt, max_length=100)\n\n# Print generated text\nprint(generated_text)"
+    }
+  },
+  {
+    "id": "B1D",
+    "name": "Imagen",
+    "description": "Imagen is a text-to-image diffusion model with an unprecedented degree of photorealism and a deep level of language understanding.",
+    "creator": "Google Brain",
+    "featured": false,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation",
+      "Creative projects",
+      "Visual content creation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import tensorflow as tf\n\n# Load pre-trained Imagen model\nmodel = tf.keras.models.load_model('imagen_model')\n\n# Generate image from text description\ntext_description = 'A red apple on a wooden table'\ngenerated_image = model.generate_image(text_description)\n\n# Display generated image\nplt.imshow(generated_image)\nplt.axis('off')\nplt.show()"
+    }
+  },
+  {
+    "id": "C5F",
+    "name": "CLIP",
+    "description": "CLIP (Contrastive Language-Image Pre-training) is a neural network trained on a variety of (image, text) pairs.",
+    "creator": "OpenAI",
+    "featured": false,
+    "category": "Multimodal Learning",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image-text matching",
+      "Zero-shot learning",
+      "Visual question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nimport torchvision\nfrom PIL import Image\n\n# Load CLIP model\nmodel, preprocess = torch.hub.load('openai/clip', 'clip-ViT-B-32', pretrained=True)\n\n# Define image and text\nimage = preprocess(Image.open('image.jpg')).unsqueeze(0)\ntext = clip.tokenize(['A cat playing with a ball'])\n\n# Perform image-text matching\nwith torch.no_grad():\n    image_features = model.encode_image(image)\n    text_features = model.encode_text(text)\n\n# Calculate similarity score\nsimilarity = (100.0 * image_features @ text_features.T).softmax(dim=-1)\n\n# Print similarity score\nprint('Similarity Score:', similarity.item())"
+    }
+  },
+  {
+    "id": "E9B",
+    "name": "DALL-E",
+    "description": "DALL-E is a 12-billion parameter version of GPT-3 trained to generate images from text descriptions.",
+    "creator": "OpenAI",
+    "featured": false,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Artificial image generation",
+      "Creative projects",
+      "Visual content creation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import torch\nimport torchvision\nfrom PIL import Image\n\n# Load DALL-E model\nmodel = torch.hub.load('openai/dall-e', 'dalle')\n\n# Define text description\ntext = 'A surreal landscape with floating islands and pink skies.'\n\n# Generate image from text\nwith torch.no_grad():\n    image = model.generate_images(text)\n\n# Save generated image\nimage.save('generated_image.jpg')"
+    }
+  },
+  {
+    "id": "2C7",
+    "name": "Inception",
+    "description": "Inception is a deep convolutional neural network architecture for computer vision tasks, particularly image classification.",
+    "creator": "Google",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object recognition",
+      "Image segmentation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "import tensorflow as tf\nfrom tensorflow.keras.applications import InceptionV3\nfrom tensorflow.keras.preprocessing import image\nfrom tensorflow.keras.applications.inception_v3 import preprocess_input, decode_predictions\nimport numpy as np\n\n# Load Inception model\nmodel = InceptionV3(weights='imagenet')\n\n# Load and preprocess image\nimg_path = 'image.jpg'\nimg = image.load_img(img_path, target_size=(299, 299))\nx = image.img_to_array(img)\nx = np.expand_dims(x, axis=0)\nx = preprocess_input(x)\n\n# Predict class probabilities\npreds = model.predict(x)\n\n# Decode predictions\ndecoded_preds = decode_predictions(preds, top=3)[0]\n\n# Print top 3 predicted classes\nfor i, (imagenet_id, label, score) in enumerate(decoded_preds):\n    print(f'{i+1}. {label}: {score}')"
+    }
+  },
+  {
+    "id": "F3E",
+    "name": "ERNIE",
+    "description": "ERNIE (Enhanced Representation through kNowledge IntEgration) is a continual pre-training framework for language understanding.",
+    "creator": "Baidu",
+    "featured": false,
+    "category": "Language Model",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text generation",
+      "Language translation",
+      "Question answering"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Hypothetical code example for using ERNIE for text generation\nimport torch\nfrom transformers import AutoModelForCausalLM, AutoTokenizer\n\n# Load ERNIE model and tokenizer\nmodel_name = 'nghuyong/ernie-2.0-large-en'\ntokenizer = AutoTokenizer.from_pretrained(model_name)\nmodel = AutoModelForCausalLM.from_pretrained(model_name)\n\n# Generate text\nprompt = 'Today is a beautiful day and'\ninput_ids = tokenizer.encode(prompt, return_tensors='pt')\noutput = model.generate(input_ids, max_length=100, num_return_sequences=1)\n\n# Decode and print generated text\ngenerated_text = tokenizer.decode(output[0], skip_special_tokens=True)\nprint('Generated Text:')\nprint(generated_text)"
+    }
+  },
+  {
+    "id": "A4D",
+    "name": "Cogview",
+    "description": "Cogview is a pre-trained transformer for text-to-image generation.",
+    "creator": "THUDM",
+    "featured": false,
+    "category": "Image Generation",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Text-to-image generation",
+      "Creative projects",
+      "Visual content creation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Hypothetical code example for using Cogview for text-to-image generation\nimport torch\nfrom transformers import CogviewForConditionalGeneration, CogviewTokenizer\n\n# Load Cogview model and tokenizer\nmodel_name = 'thudm/cogview-1billion-16'\ntokenizer = CogviewTokenizer.from_pretrained(model_name)\nmodel = CogviewForConditionalGeneration.from_pretrained(model_name)\n\n# Generate image from text\ntext = 'A red car driving through a forest'\ninput_ids = tokenizer(text, return_tensors='pt').input_ids\noutput = model.generate(input_ids)\n\n# Save or display generated image\n# (Code to save or display the generated image goes here)"
+    }
+  },
+  {
+    "id": "5E9",
+    "name": "ControlNet",
+    "description": "ControlNet is a neural network structure to control diffusion models by adding extra conditions.",
+    "creator": "Lvmin Zhang",
+    "featured": true,
+    "category": "Image Generation",
+    "reasonForFeatured": "Most favorites",
+    "useCases": [
+      "Artificial image generation",
+      "Creative projects",
+      "Visual content creation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Hypothetical code example for using ControlNet for image generation\nimport torch\nfrom controlnet import ControlNet\n\n# Load ControlNet model\nmodel = ControlNet()\n\n# Define additional conditions for image generation\nadditional_conditions = {\n    'style': 'portrait',\n    'emotion': 'happy',\n    'time_of_day': 'morning'\n}\n\n# Generate image with additional conditions\ngenerated_image = model.generate_image(additional_conditions)\n\n# Save or display the generated image\n# (Code to save or display the generated image goes here)"
+    }
+  },
+  {
+    "id": "B6F",
+    "name": "Blip",
+    "description": "Blip is a general-purpose vision-language model that can be easily adapted for different downstream tasks.",
+    "creator": "Salesforce Research",
+    "featured": false,
+    "category": "Multimodal Learning",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image-text matching",
+      "Visual question answering",
+      "Text-to-image generation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Hypothetical code example for using Blip for image-text matching\nimport torch\nfrom blip import Blip\n\n# Load Blip model\nmodel = Blip()\n\n# Load image and text\nimage = load_image('path/to/image.jpg')\ntext = 'A person walking in the park'\n\n# Perform image-text matching\nmatching_score = model.match_image_text(image, text)\n\n# Output matching score\nprint('Matching score:', matching_score)"
+    }
+  },
+  {
+    "id": "7A3",
+    "name": "ViT",
+    "description": "ViT (Vision Transformer) is a transformer-based machine learning model for image classification.",
+    "creator": "Google Research",
+    "featured": false,
+    "category": "Computer Vision",
+    "reasonForFeatured": "",
+    "useCases": [
+      "Image classification",
+      "Object recognition",
+      "Image segmentation"
+    ],
+    "codeExample": {
+      "language": "python",
+      "code": "# Hypothetical code example for using ViT for image classification\nimport torch\nimport torchvision.transforms as transforms\nfrom PIL import Image\nfrom vit_pytorch import ViT\n\n# Load ViT model\nmodel = ViT(image_size=224, num_classes=1000, dim=768, depth=12, heads=12, mlp_dim=3072)\n\n# Load pre-trained weights (if available)\n# model.load_state_dict(torch.load('vit_model_weights.pth'))\n\n# Load and preprocess image\nimage_path = 'path/to/image.jpg'\nimage = Image.open(image_path)\npreprocess = transforms.Compose([\n    transforms.Resize(224),\n    transforms.CenterCrop(224),\n    transforms.ToTensor(),\n    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225]),\n])\ninput_image = preprocess(image).unsqueeze(0)\n\n# Perform image classification\noutput = model(input_image)\n\n# Get predicted class\npredicted_class = torch.argmax(output, dim=1)\n\n# Output predicted class\nprint('Predicted class:', predicted_class.item())"
+    }
+  },
+  {
+    "id": "owpe6yuqt",
+    "name": "Celeb Face Match",
+    "description": "Matches face in less than10s",
+    "creator": "Myself",
+    "featured": false,
+    "category": "Image Classification",
+    "useCases": [
+      "Classifying images",
+      " labelling"
+    ],
+    "reasonForFeatured": "",
+    "codeExample": {
+      "language": "python",
+      "code": "from transformers import CelebMatch\nimport numpy as np"
+    }
+  }
+]
